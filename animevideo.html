@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>short Video Slider</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh; /* Full height of the viewport */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    background-image: url("assets/bg.png");
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+.video-slider {
+    position: relative;
+    width: 80vw;  /* 80% of viewport width */
+    max-width: 800px; /* Maximum width */
+    height: 450px; /* Fixed height for the slider */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    overflow: hidden; /* Hide overflow */
+    background-color: #fff; /* White background for contrast */
+}
+
+.slides {
+    display: flex;
+    height: 100%; /* Ensure slides take full height */
+    transition: transform 0.5s ease-in-out; /* Smooth slide transition */
+}
+
+iframe {
+    min-width: 100%; /* Each video takes full width */
+    height: 100%; /* Full height of the parent */
+    border: none;
+}
+
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10; /* Ensure buttons are above other content */
+    transition: background-color 0.3s;
+}
+
+button.prev {
+    left: 20px;
+}
+
+button.next {
+    right: 20px;
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+</style>
+<body>
+    
+    <div class="video-slider">
+        <div class="slides">
+            <iframe src="https://drive.google.com/file/d/1DlDYiUlyCRQyBl-neNiCIV3szQnC-HtO/preview" width="640" height="480" allow="autoplay"></iframe>
+            <iframe src="https://drive.google.com/file/d/1phDRwovujmjm77B6vT0NnVfvX9Fb8EM2/preview" width="640" height="480" allow="autoplay"></iframe>
+            <iframe src="https://drive.google.com/file/d/1ULDUrM-j-fx40g7HgA6nggZPvCIbdR2_/preview" width="640" height="480" allow="autoplay"></iframe>
+            <iframe src="https://drive.google.com/file/d/12DKvqdCPlauiWfQxAFlfANfOa19iT4Cn/preview" width="640" height="480" allow="autoplay"></iframe>
+        </div>
+        <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+        <button class="next" onclick="changeSlide(1)">&#10095;</button>
+    </div>
+
+    <script>let currentSlide = 0;
+
+        function changeSlide(direction) {
+            const slides = document.querySelector('.slides');
+            const totalSlides = slides.children.length;
+            
+            currentSlide += direction;
+        
+            if (currentSlide < 0) {
+                currentSlide = totalSlides - 1; // Go to the last slide
+            } else if (currentSlide >= totalSlides) {
+                currentSlide = 0; // Go back to the first slide
+            }
+        
+            const offset = -currentSlide * 100; // Calculate the offset for the slide transition
+            slides.style.transform = `translateX(${offset}%)`;
+        }
+        </script>
+</body>
+</html>
